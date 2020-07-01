@@ -1,5 +1,41 @@
 .container {
     display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: 0 auto;
+    width:650px;
+    height:450px;
+    padding-top: 150px;
+    padding-left: 100px;
+    padding-right: 10px;
+}
+
+.options{
+    float:left;
+    
+}
+
+#start-button, #restart-button {
+    background-color: rgb(163, 51, 51);
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.scores{
+    font-family: "Lucida Console", Courier, monospace;
+}
+
+.game{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 30px;
 }
 
 .grid{
@@ -7,16 +43,21 @@
     height:400px;
     display: flex;
     flex-wrap: wrap;
-    background-color: yellow;
+    background-color: pink;
+    border:3px solid black;
 }
 
-.grid div{
+.grid-div{
     height: 20px;
     width: 20px;
 }
 
 .tetromino{
     background-color: blue;
+}
+
+.third{
+    float:right;
 }
 
 .mini-grid{
@@ -26,6 +67,7 @@
     display: flex;
     flex-wrap: wrap;
     background-color: yellow;
+    border:3px solid black;
 }
 
 .mini-grid div{

@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded',() => {
-    // Make the divs automatic generated
-    // const container = document.getElementById("grid");
-    // for(var i = 0; i < 200; i++){
-    //     container.innerHTML +=  '<div>' + '</div>';
-    // }
 
     const grid = document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-button')
+    const restartBtn = document.querySelector('#restart-button')
     const width=10
     let nextRandom = 0
     let timerId
@@ -20,7 +16,8 @@ document.addEventListener('DOMContentLoaded',() => {
         'green',
         'purple'
     ]
-
+    let highestScore = 0
+    const highScoreDisplay = document.querySelector('#highest-score')
 
     //The Tetrominoes
     const lTetromino = [
@@ -82,10 +79,6 @@ document.addEventListener('DOMContentLoaded',() => {
         })
     }
 
-    // Make the Tetromino move down every second 
-    // timerId = setInterval(moveDown, 200)
-
-    // Assign functions to keyCodes
     function control(e){
         if(e.keyCode === 37){
             moveLeft()
@@ -200,8 +193,34 @@ document.addEventListener('DOMContentLoaded',() => {
         })
     }
 
-    //Add functionality to the button
+    //Add functionality to the start button
     startBtn.addEventListener('click', () =>{
+        startGame()
+    })
+
+    //Add functionality to the restart button
+    restartBtn.addEventListener('click', () =>{
+        undraw()
+
+        squares.forEach(index => {
+            if (index.classList.contains('tetromino')){
+                index.classList.remove('tetromino')
+                index.style.removeProperty('background-color');
+                index.removeAttribute("class")
+                index.classList.add('grid-div')
+            }        
+        })
+
+        checkHighestScore()
+        
+        // index.classList.remove('tetromino')
+        // index.removeAttribute("class")
+        console.log(index)
+        // squares[currentPosition+index].style.backgroundColor = ''
+        startGame()
+        })
+    
+    function startGame(){
         if (timerId){
             clearInterval(timerId)
             timerId = null
@@ -212,7 +231,7 @@ document.addEventListener('DOMContentLoaded',() => {
             nextRandom = Math.floor(Math.random()*theTetrominoes.length)
             displayShape()
         }
-    })
+    }
 
     //Add score
     function addScore(){
@@ -237,9 +256,20 @@ document.addEventListener('DOMContentLoaded',() => {
 
     function gameOver(){
         if(current.some(index => squares[currentPosition+index].classList.contains('taken'))){
-            scoreDisplay.innerHTML = 'end'
+            checkHighestScore()
+            scoreDisplay.innerHTML = '☠️'
             clearInterval(timerId)
+        }
+    }
 
+    function checkHighestScore(){
+        if (score >= highestScore){
+            highestScore = score;
+            highScoreDisplay.innerHTML = highestScore
+            scoreDisplay.innerHTML = 0
+        }
+        else{
+            scoreDisplay.innerHTML = 0
         }
     }
 
